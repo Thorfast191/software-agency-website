@@ -42,17 +42,11 @@ export function Hero({
   const eyebrow = heroEyebrow ?? agencyName;
 
   // Two discrete fields rather than one delimited string: the client sets the
-  // white phrase and the accent phrase independently, with no syntax to learn.
-  const toWords = (text: string | null, accent: boolean) =>
-    (text ?? "")
-      .split(/\s+/)
-      .filter(Boolean)
-      .map((word) => ({ word, accent }));
-
-  const words = [
-    ...toWords(heroHeadline ?? tagline, false),
-    ...toWords(heroHeadlineAccent, true),
-  ];
+  // white line and the accent line independently, with no syntax to learn.
+  const lines = [
+    { text: heroHeadline ?? tagline, accent: false },
+    { text: heroHeadlineAccent, accent: true },
+  ].filter((line): line is { text: string; accent: boolean } => Boolean(line.text));
 
   return (
     <section
@@ -67,7 +61,7 @@ export function Hero({
         className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center"
       >
         <motion.span
-          className="site-eyebrow"
+          className="site-eyebrow !text-site-text"
           initial={{ opacity: 0, y: reduced ? 0 : 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: SITE_EASE }}
@@ -76,34 +70,32 @@ export function Hero({
         </motion.span>
 
         <h1 className="site-display mt-8">
-          {words.map((item, index) => (
+          {lines.map((line, index) => (
             <motion.span
-              key={`${item.word}-${index}`}
-              className={`mr-[0.22em] inline-block ${
-                item.accent ? "site-bloom-accent" : "site-bloom-light"
-              }`}
+              key={`${line.text}-${index}`}
+              className={`block ${line.accent ? "site-bloom-accent" : "site-bloom-light"}`}
               initial={{ opacity: 0, y: reduced ? 0 : 48 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.9,
                 ease: SITE_EASE,
-                delay: reduced ? 0 : 0.15 + index * 0.07,
+                delay: reduced ? 0 : 0.15 + index * 0.15,
               }}
             >
-              {item.word}
+              {line.text}
             </motion.span>
           ))}
         </h1>
 
         {heroSubtitle && (
           <motion.p
-            className="mt-10 max-w-2xl text-base leading-relaxed text-site-muted sm:text-lg"
+            className="mt-10 max-w-3xl text-base leading-relaxed text-site-muted sm:text-xl"
             initial={{ opacity: 0, y: reduced ? 0 : 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 0.8,
               ease: SITE_EASE,
-              delay: reduced ? 0 : 0.2 + words.length * 0.07,
+              delay: reduced ? 0 : 0.2 + lines.length * 0.15,
             }}
           >
             {heroSubtitle}
@@ -117,25 +109,27 @@ export function Hero({
           transition={{
             duration: 0.8,
             ease: SITE_EASE,
-            delay: reduced ? 0 : 0.3 + words.length * 0.07,
+            delay: reduced ? 0 : 0.3 + lines.length * 0.15,
           }}
         >
           <Magnetic>
             <a
               href={primaryHref || "#portfolio"}
-              className="site-pill inline-block bg-white px-10 py-4 text-[#050505] hover:-translate-y-1 hover:shadow-[0_20px_40px_var(--site-glow)]"
+              className="site-pill inline-block bg-white px-14 py-5 text-[0.8rem] text-[#050505] hover:-translate-y-1 hover:shadow-[0_20px_40px_var(--site-glow)]"
             >
-              {primaryLabel || "View our work"}
+              {primaryLabel || "View portfolio"}
             </a>
           </Magnetic>
-          <Magnetic>
-            <a
-              href={secondaryHref || "#contact"}
-              className="site-pill inline-block border border-site-border-strong px-10 py-4 text-site-text hover:-translate-y-1 hover:border-site-accent hover:bg-site-surface-hover"
-            >
-              {secondaryLabel || "Get in touch"}
-            </a>
-          </Magnetic>
+          {secondaryLabel && (
+            <Magnetic>
+              <a
+                href={secondaryHref || "#contact"}
+                className="site-pill inline-block border border-site-border-strong px-14 py-5 text-[0.8rem] text-site-text hover:-translate-y-1 hover:border-site-accent hover:bg-site-surface-hover"
+              >
+                {secondaryLabel}
+              </a>
+            </Magnetic>
+          )}
         </motion.div>
       </motion.div>
     </section>

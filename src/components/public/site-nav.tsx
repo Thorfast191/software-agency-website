@@ -111,7 +111,7 @@ export function SiteNav({ agencyName }: { agencyName: string }) {
         <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6">
           <a
             href="#top"
-            className="site-h3 text-lg tracking-tight text-site-text"
+            className="site-h3 text-xl font-extrabold tracking-tight text-site-text"
             onClick={() => setMenuOpen(false)}
           >
             {agencyName}
@@ -122,9 +122,9 @@ export function SiteNav({ agencyName }: { agencyName: string }) {
               <a
                 key={link.href}
                 href={link.href}
-                className="group flex items-center gap-2 text-xs font-medium uppercase tracking-[0.1em] text-site-text/60 transition-colors duration-500 ease-site hover:text-site-text"
+                className="group flex items-center gap-2 text-[0.8rem] font-medium uppercase tracking-[0.1em] text-site-text/85 transition-colors duration-500 ease-site hover:text-site-text"
               >
-                <span className="text-site-accent">{link.index}</span>
+                <span className="text-site-accent/80">{link.index}</span>
                 {link.label}
               </a>
             ))}
@@ -134,7 +134,7 @@ export function SiteNav({ agencyName }: { agencyName: string }) {
             <Magnetic className="hidden sm:inline-block">
               <a
                 href="#contact"
-                className="site-pill inline-block bg-white px-7 py-3.5 text-[#050505] hover:-translate-y-1 hover:shadow-[0_20px_40px_var(--site-glow)]"
+                className="site-pill inline-block bg-white px-8 py-3.5 text-[#050505] hover:-translate-y-1 hover:shadow-[0_20px_40px_var(--site-glow)]"
               >
                 Order a project
               </a>

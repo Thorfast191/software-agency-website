@@ -7,7 +7,6 @@ import { PortfolioSection } from "@/components/public/portfolio-section";
 import { TestimonialsSection } from "@/components/public/testimonials-section";
 import { ProcessSection } from "@/components/public/process-section";
 import { FaqSection } from "@/components/public/faq-section";
-import { TeamSection } from "@/components/public/team-section";
 import { ContactSection } from "@/components/public/contact-section";
 import { Footer } from "@/components/public/footer";
 
@@ -15,7 +14,7 @@ export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await prisma.siteSettings.findFirst();
-  const title = settings?.agencyName ?? "Agency";
+  const title = settings?.agencyName ?? "360 Digitals";
   const description = settings?.tagline ?? undefined;
 
   return {
@@ -38,14 +37,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [settings, services, portfolioItems, testimonials, faqs, teamMembers] =
+  const [settings, services, portfolioItems, testimonials, faqs] =
     await Promise.all([
       prisma.siteSettings.findFirst(),
       prisma.service.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
       prisma.portfolioItem.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
       prisma.testimonial.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
       prisma.faq.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
-      prisma.teamMember.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
     ]);
 
   if (!settings) {
@@ -83,7 +81,6 @@ export default async function Home() {
         <TestimonialsSection testimonials={testimonials} />
         <ProcessSection />
         <FaqSection faqs={faqs} />
-        <TeamSection members={teamMembers} />
         <ContactSection
           services={services.map((s) => ({ id: s.id, title: s.title }))}
           budgetRanges={settings.budgetRanges}

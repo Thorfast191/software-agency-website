@@ -13,7 +13,7 @@ export async function cancelMeeting(id: string) {
   });
 
   const settings = await prisma.siteSettings.findFirst();
-  const fromName = settings?.smtpSenderName || settings?.agencyName || "Agency";
+  const fromName = settings?.smtpSenderName || settings?.agencyName || "360 Digitals";
 
   try {
     await sendMail({

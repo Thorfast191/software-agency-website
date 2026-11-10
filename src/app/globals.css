@@ -9,7 +9,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-heading);
+  --font-heading: var(--font-outfit);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -178,6 +178,22 @@
   color: var(--site-text);
   position: relative;
   overflow-x: clip;
+  isolation: isolate;
+}
+
+/* Page-wide violet haze, fixed to the viewport so every section sits on the
+   same soft glow instead of flat black. */
+.site-root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(70vw 60vh at 50% 40%, rgb(99 102 241 / 0.2), transparent 75%),
+    radial-gradient(60vw 60vh at 85% 95%, rgb(168 85 247 / 0.16), transparent 75%),
+    radial-gradient(50vw 50vh at 10% 85%, rgb(99 102 241 / 0.12), transparent 75%),
+    linear-gradient(180deg, #0b0816, #120d24);
 }
 
 .site-root ::selection {
@@ -188,46 +204,59 @@
 /* Headings ---------------------------------------------------------------- */
 
 .site-display {
-  font-family: var(--font-heading), system-ui, sans-serif;
+  font-family: var(--font-outfit), system-ui, sans-serif;
   font-weight: 800;
   letter-spacing: -0.04em;
-  line-height: 0.95;
-  font-size: clamp(3.25rem, 9vw, 8rem);
+  line-height: 0.9;
+  font-size: clamp(3.25rem, 10vw, 9rem);
 }
 
 .site-h2 {
-  font-family: var(--font-heading), system-ui, sans-serif;
+  font-family: var(--font-outfit), system-ui, sans-serif;
   font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.02;
-  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  font-size: clamp(2.25rem, 4.5vw, 3rem);
+  background-image: linear-gradient(135deg, #ffffff, #cbd5e1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .site-h3 {
-  font-family: var(--font-heading), system-ui, sans-serif;
+  font-family: var(--font-outfit), system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .site-eyebrow {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--site-accent);
 }
 
-/* The two-tone hero treatment: a white line with a soft bloom, then an accent
-   line with a violet bloom. text-shadow rather than a filter so the glow does
-   not force the text onto its own compositing layer at large sizes. */
+/* The two-tone hero treatment: a white-to-slate gradient line, then an
+   indigo-to-lilac gradient line, each with a soft drop-shadow bloom. The
+   gradient is clipped to the glyphs, so the glow comes from drop-shadow
+   (text-shadow would show through the transparent fill). */
+.site-bloom-light,
+.site-bloom-accent {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.08em;
+}
+
 .site-bloom-light {
-  color: #f1f5f9;
-  text-shadow: 0 0 80px rgb(255 255 255 / 0.25);
+  background-image: linear-gradient(135deg, #ffffff, #cbd5e1);
+  filter: drop-shadow(0 0 40px rgb(255 255 255 / 0.18));
 }
 
 .site-bloom-accent {
-  color: #b9b3f5;
-  text-shadow: 0 0 80px rgb(139 122 246 / 0.45);
+  background-image: linear-gradient(to right, #a5b4fc, #e9d5ff);
+  filter: drop-shadow(0 0 50px rgb(139 122 246 / 0.4));
 }
 
 /* Surfaces ---------------------------------------------------------------- */
@@ -236,6 +265,20 @@
   background-color: var(--site-surface);
   border: 1px solid var(--site-border);
   backdrop-filter: blur(12px);
+}
+
+.site-card {
+  border-radius: 30px;
+  background-color: rgb(255 255 255 / 0.01);
+  border: 1px solid var(--site-border);
+  backdrop-filter: blur(15px);
+}
+
+/* Faint full-width band used behind alternating sections. */
+.site-band {
+  background-color: rgb(255 255 255 / 0.01);
+  border-top: 1px solid rgb(255 255 255 / 0.04);
+  border-bottom: 1px solid rgb(255 255 255 / 0.04);
 }
 
 .site-pill {
@@ -429,10 +472,10 @@
 
 .site-field {
   width: 100%;
-  border-radius: 0.75rem;
-  background-color: rgb(255 255 255 / 0.04);
-  border: 1px solid rgb(255 255 255 / 0.1);
-  padding: 0.9rem 1.1rem;
+  border-radius: 15px;
+  background-color: rgb(255 255 255 / 0.03);
+  border: 1px solid var(--site-border);
+  padding: 1.2rem 1.5rem;
   color: var(--site-text);
   transition: border-color 0.3s var(--site-ease), box-shadow 0.3s var(--site-ease);
 }

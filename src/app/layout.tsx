@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Geist_Mono, Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
@@ -13,16 +13,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-heading",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
-  title: "Agency",
-  description: "Agency website",
+  title: "360 Digitals",
+  description: "360 Digitals — full service software agency",
 };
 
 export default function RootLayout({
@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${geistMono.variable} ${plusJakarta.variable} antialiased`}
+        className={`${inter.variable} ${geistMono.variable} ${outfit.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}

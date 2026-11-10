@@ -2,13 +2,13 @@ import { ImageResponse } from "next/og";
 import { prisma } from "@/lib/prisma";
 
 export const runtime = "nodejs";
-export const alt = "Agency";
+export const alt = "360 Digitals";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OpengraphImage() {
   const settings = await prisma.siteSettings.findFirst();
-  const agencyName = settings?.agencyName ?? "Agency";
+  const agencyName = settings?.agencyName ?? "360 Digitals";
   const tagline = settings?.tagline ?? "";
 
   return new ImageResponse(

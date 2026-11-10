@@ -26,15 +26,15 @@ export function ContactSection({
     <section id="contact" className="relative overflow-hidden px-6 py-28 sm:py-36">
       <Blobs />
 
-      <div className="relative z-10 mx-auto max-w-4xl">
+      <div className="relative z-10 mx-auto max-w-3xl">
         <Reveal>
-          <div className="rounded-[2rem] border border-site-border bg-site-surface p-8 backdrop-blur-xl sm:p-14">
+          <div className="site-card !rounded-[40px] px-6 py-12 sm:px-16 sm:py-20">
             <div className="text-center">
-              <span className="site-eyebrow">04 — Start your journey</span>
-              <h2 className="site-h2 mt-4 text-site-text">Let&apos;s build something</h2>
-              <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-site-muted">
-                Tell us what you&apos;re working on, or grab a slot and talk it through
-                with us directly.
+              <span className="site-eyebrow">Start your journey</span>
+              <h2 className="site-h2 mt-4">Let&apos;s Build Something Great</h2>
+              <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-site-muted">
+                Tell us what you&apos;re working on, or book a call and talk it through with
+                us directly.
               </p>
             </div>
 

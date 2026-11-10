@@ -9,65 +9,71 @@ export function PortfolioSection({ items }: { items: PortfolioItem[] }) {
 
   return (
     <section id="portfolio" className="relative px-6 py-28 sm:py-36">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-6xl">
         <SectionHeading
-          eyebrow="02 — Curated work"
-          title="Selected projects"
-          description="A sample of recent builds, chosen for the problems they solved rather than the pixels they shipped."
+          eyebrow="Curated work"
+          title="Selected Projects"
+          description="A selection of products we have designed, engineered and shipped for our clients."
         />
 
-        <div className="mt-20 grid gap-8 md:grid-cols-2">
-          {items.map((item, index) => (
-            <Reveal
-              key={item.id}
-              delay={(index % 2) * 0.12}
-              /* Nudging the right-hand column down breaks the grid's lockstep
-                 and gives the section an editorial rhythm. */
-              className={index % 2 === 1 ? "md:mt-16" : undefined}
-            >
-              <article className="group h-full overflow-hidden rounded-3xl border border-site-border bg-site-surface transition-all duration-[600ms] ease-site hover:-translate-y-2 hover:border-site-border-strong">
-                {item.images[0] && (
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+        <div className="mt-20 grid gap-10 md:grid-cols-2">
+          {items.map((item, index) => {
+            const card = (
+              <article className="site-card group h-full overflow-hidden transition-all duration-[600ms] ease-site hover:-translate-y-2 hover:border-site-border-strong">
+                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                  {item.images[0] ? (
                     <Image
                       src={item.images[0]}
                       alt={item.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-[800ms] ease-site group-hover:scale-[1.08]"
+                      className="object-cover transition-transform duration-[800ms] ease-site group-hover:scale-[1.06]"
                     />
+                  ) : (
+                    // No image uploaded yet: a branded gradient keeps the grid even.
                     <div
                       aria-hidden
-                      className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent"
+                      className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgb(99_102_241/0.35),transparent_60%),radial-gradient(circle_at_80%_80%,rgb(168_85_247/0.3),transparent_60%)] transition-transform duration-[800ms] ease-site group-hover:scale-[1.06]"
                     />
-                  </div>
-                )}
-
-                <div className="p-8">
-                  {item.tags.length > 0 && (
-                    <p className="text-[0.7rem] uppercase tracking-[0.2em] text-site-accent">
-                      {item.tags.join(" / ")}
-                    </p>
                   )}
-                  <h3 className="site-h3 mt-4 text-2xl text-site-text">{item.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-site-muted">
-                    {item.description}
-                  </p>
+                </div>
 
+                <div className="flex items-end justify-between gap-6 px-8 py-10 sm:px-10">
+                  <div>
+                    {item.tags.length > 0 && (
+                      <p className="text-[0.8rem] font-bold uppercase text-site-accent">
+                        {item.tags.join(" / ")}
+                      </p>
+                    )}
+                    <h3 className="site-h3 mt-4 text-2xl text-site-text sm:text-3xl">
+                      {item.title}
+                    </h3>
+                  </div>
                   {item.externalLink && (
-                    <a
-                      href={item.externalLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-site-text transition-colors duration-500 ease-site hover:text-site-accent"
-                    >
-                      View project
-                      <ArrowUpRight className="h-4 w-4 transition-transform duration-500 ease-site group-hover:translate-x-1 group-hover:-translate-y-1" />
-                    </a>
+                    <ArrowUpRight className="h-6 w-6 shrink-0 text-site-muted transition-all duration-500 ease-site group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-site-text" />
                   )}
                 </div>
               </article>
-            </Reveal>
-          ))}
+            );
+
+            return (
+              <Reveal key={item.id} delay={(index % 2) * 0.12}>
+                {item.externalLink ? (
+                  <a
+                    href={item.externalLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${item.title} (opens in a new tab)`}
+                    className="block h-full rounded-[30px]"
+                  >
+                    {card}
+                  </a>
+                ) : (
+                  card
+                )}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

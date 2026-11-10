@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 
   try {
     const settings = await prisma.siteSettings.findFirst();
-    const fromName = settings?.smtpSenderName ?? settings?.agencyName ?? "Agency";
+    const fromName = settings?.smtpSenderName ?? settings?.agencyName ?? "360 Digitals";
 
     if (settings?.contactEmail) {
       await sendMail({

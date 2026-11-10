@@ -29,7 +29,7 @@ export async function sendMail(options: {
     return;
   }
 
-  const fromName = options.fromName ?? "Agency";
+  const fromName = options.fromName ?? "360 Digitals";
   const fromAddress = process.env.SMTP_FROM ?? process.env.SMTP_USER ?? "no-reply@example.com";
 
   await transport.sendMail({

@@ -10,17 +10,16 @@ export function ServicesSection({ services }: { services: Service[] }) {
     <section id="services" className="relative px-6 py-28 sm:py-36">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="01 — Solutions"
-          title="Everything you need, under one roof"
-          description="A full-service team covering strategy, design and engineering, so your product ships as one coherent piece of work."
+          eyebrow="Solutions"
+          title="Full-Service Software Studio"
+          description="Web, mobile, desktop and AI products, planned, designed and engineered by one senior team, so everything ships as a single coherent piece of work."
         />
 
-        <StaggerGroup className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerGroup className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
             <StaggerItem key={service.id} className="h-full">
               <ServiceCard
                 index={index}
-                icon={service.icon}
                 title={service.title}
                 description={service.description}
                 tags={service.tags}

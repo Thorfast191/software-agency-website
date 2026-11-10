@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Plus } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { SITE_EASE } from "@/components/motion/ease";
 import type { Faq } from "@prisma/client";
@@ -15,14 +14,10 @@ export function FaqSection({ faqs }: { faqs: Faq[] }) {
 
   return (
     <section id="faq" className="relative px-6 py-28 sm:py-36">
-      <div className="mx-auto max-w-4xl">
-        <SectionHeading
-          eyebrow="Knowledge base"
-          title="Common questions"
-          description="The things clients usually ask before we start. If yours is not here, just ask."
-        />
+      <div className="mx-auto max-w-3xl">
+        <SectionHeading eyebrow="Knowledge base" title="Common Questions" align="left" />
 
-        <div className="mt-20">
+        <div className="mt-16">
           {faqs.map((faq) => {
             const open = openId === faq.id;
 
@@ -35,16 +30,23 @@ export function FaqSection({ faqs }: { faqs: Faq[] }) {
                     aria-expanded={open}
                     aria-controls={`faq-panel-${faq.id}`}
                     id={`faq-trigger-${faq.id}`}
-                    className="flex w-full items-center justify-between gap-6 py-7 text-left"
+                    className="flex w-full items-center justify-between gap-6 py-8 text-left"
                   >
-                    <span className="site-h3 text-lg text-site-text sm:text-xl">
+                    <span
+                      className={`site-h3 text-lg transition-colors duration-500 ease-site sm:text-xl ${
+                        open ? "text-site-accent" : "text-site-text"
+                      }`}
+                    >
                       {faq.question}
                     </span>
-                    <Plus
-                      className={`h-5 w-5 shrink-0 text-site-accent transition-transform duration-500 ease-site ${
-                        open ? "rotate-[135deg]" : ""
+                    <span
+                      aria-hidden
+                      className={`shrink-0 text-xl leading-none text-site-text transition-transform duration-500 ease-site ${
+                        open ? "rotate-45" : ""
                       }`}
-                    />
+                    >
+                      +
+                    </span>
                   </button>
                 </h3>
 

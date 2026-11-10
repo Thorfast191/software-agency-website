@@ -29,7 +29,6 @@ export function ContactForm({
       body: JSON.stringify({
         name: formData.get("name"),
         email: formData.get("email"),
-        company: formData.get("company"),
         message: formData.get("message"),
         serviceId: serviceId || undefined,
         projectType:
@@ -63,13 +62,13 @@ export function ContactForm({
     <form onSubmit={handleSubmit} className="space-y-7">
       <div className="grid gap-6 sm:grid-cols-2">
         <div className="space-y-2.5">
-          <label htmlFor="name" className="block text-sm font-medium text-site-accent">
+          <label htmlFor="name" className="block text-[0.9rem] text-site-accent">
             Full name
           </label>
           <input id="name" name="name" required className="site-field" placeholder="Jane Doe" />
         </div>
         <div className="space-y-2.5">
-          <label htmlFor="email" className="block text-sm font-medium text-site-accent">
+          <label htmlFor="email" className="block text-[0.9rem] text-site-accent">
             Email address
           </label>
           <input
@@ -83,31 +82,23 @@ export function ContactForm({
         </div>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-2.5">
-          <label htmlFor="company" className="block text-sm font-medium text-site-accent">
-            Company <span className="text-site-muted">(optional)</span>
-          </label>
-          <input id="company" name="company" className="site-field" placeholder="Acme Inc." />
-        </div>
-        <div className="space-y-2.5">
-          <label htmlFor="serviceId" className="block text-sm font-medium text-site-accent">
-            Project type
-          </label>
-          <select id="serviceId" name="serviceId" className="site-field" defaultValue="">
-            <option value="">Select a service</option>
-            {services.map((service) => (
-              <option key={service.id} value={service.id}>
-                {service.title}
-              </option>
-            ))}
-          </select>
-        </div>
+      <div className="space-y-2.5">
+        <label htmlFor="serviceId" className="block text-[0.9rem] text-site-accent">
+          Project type
+        </label>
+        <select id="serviceId" name="serviceId" className="site-field" defaultValue="">
+          <option value="">Select a service</option>
+          {services.map((service) => (
+            <option key={service.id} value={service.id}>
+              {service.title}
+            </option>
+          ))}
+        </select>
       </div>
 
       {budgetRanges.length > 0 && (
       <fieldset className="space-y-3">
-        <legend className="text-sm font-medium text-site-accent">Budget range</legend>
+        <legend className="text-[0.9rem] text-site-accent">Budget range</legend>
         <div className="flex flex-wrap gap-3">
           {budgetRanges.map((option) => {
             const active = budget === option;
@@ -120,7 +111,7 @@ export function ContactForm({
                 className={`rounded-full border px-5 py-2.5 text-sm transition-all duration-500 ease-site ${
                   active
                     ? "border-site-accent bg-[rgb(99_102_241/0.18)] text-site-text"
-                    : "border-site-border text-site-muted hover:border-site-border-strong hover:text-site-text"
+                    : "border-site-border text-site-text/90 hover:border-site-border-strong hover:text-site-text"
                 }`}
               >
                 {option}
@@ -132,7 +123,7 @@ export function ContactForm({
       )}
 
       <div className="space-y-2.5">
-        <label htmlFor="message" className="block text-sm font-medium text-site-accent">
+        <label htmlFor="message" className="block text-[0.9rem] text-site-accent">
           Project vision
         </label>
         <textarea
@@ -153,7 +144,7 @@ export function ContactForm({
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="site-pill w-full bg-white px-10 py-4.5 text-[#050505] hover:shadow-[0_20px_40px_var(--site-glow)] disabled:opacity-60"
+          className="site-pill w-full bg-white px-10 py-5 text-[0.8rem] text-[#050505] hover:shadow-[0_20px_40px_var(--site-glow)] disabled:opacity-60"
         >
           {status === "submitting" ? "Sending…" : "Initiate project"}
         </button>
